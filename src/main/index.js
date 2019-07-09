@@ -28,8 +28,8 @@ function createWindow () {
     useContentSize: true,
     width: 1000,
     minWidth: 1000,
-    transparent: true,
     frame: false,
+    transparent: true,
     titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
