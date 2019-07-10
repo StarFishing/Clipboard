@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
-let tray
+// let tray
 const winURL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:9080`
@@ -37,9 +37,9 @@ function createWindow () {
       nodeIntegration: true
     }
   })
-  tray = require('./tray.js')
+  require('./tray.js')
   require('./windowfocus.js')
-  tray()
+  // tray()
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
