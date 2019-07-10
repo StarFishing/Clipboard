@@ -13,6 +13,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 
 let mainWindow
+let tray
 const winURL =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:9080`
@@ -30,12 +31,15 @@ function createWindow () {
     minWidth: 1000,
     frame: false,
     transparent: true,
+    resizable: true,
     titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
     }
   })
-  require('./tray.js')
+  tray = require('./tray.js')
+  require('./windowfocus.js')
+  tray()
   mainWindow.loadURL(winURL)
 
   mainWindow.on('closed', () => {
@@ -57,7 +61,6 @@ ipcMain.on('minwindow', (event, data) => {
 })
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true'
 app.on('ready', createWindow)
-
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit()
