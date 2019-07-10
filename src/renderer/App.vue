@@ -46,4 +46,14 @@ export default {
 body {
   font-family: "Source Sans Pro", sans-serif;
 }
+pre,
+code {
+  display: block;
+  overflow: auto;
+  background: #f4f4f4;
+  padding: 5px 10px;
+  border: 1px solid #eee;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
 </style>

@@ -2,7 +2,10 @@
   <div class="homepage">
     <Sidebar></Sidebar>
     <transition name="fade">
-      <router-view :key="key" />
+      <keep-alive>
+        <router-view :key="key" />
+      </keep-alive>
+
     </transition>
   </div>
 </template>
