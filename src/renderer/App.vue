@@ -9,6 +9,7 @@
 <script>
 /*eslint-disable */
 import Navigation from './components/Navigation/index'
+import { ipcRenderer } from 'electron'
 export default {
   name: 'electron-vue',
   components: {
@@ -20,6 +21,13 @@ export default {
       body: '网络异常，请检查你的网络'
     }
     window.addEventListener('offline', function () {
+      let myNotification = new window.Notification(options.title, options)
+    })
+    ipcRenderer.on('longtime', () => {
+      let options = {
+        title: 'Pages',
+        body: '长时间未操作'
+      }
       let myNotification = new window.Notification(options.title, options)
     })
   }
