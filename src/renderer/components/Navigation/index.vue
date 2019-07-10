@@ -60,8 +60,10 @@ export default {
   display: flex;
   position: absolute;
   height: 50px;
-  right: 0;
+  align-items: center;
+  right: 20px;
   top: 0;
+  border-radius: 0 25px 0 0;
 }
 .icon-close,
 .icon-mini {
@@ -70,16 +72,17 @@ export default {
   cursor: pointer;
   width: 30px;
   display: flex;
-  height: 50px;
+  height: 30px;
   align-items: center;
   justify-content: center;
   transition: all 0.3s;
+  border-radius: 50%;
 }
 .icon-close:hover {
-  background-color: rgba(192, 193, 76, 0.44);
+  background-color: #5e4e6d;
 }
 .icon-mini:hover {
-  background-color: rgba(192, 193, 76, 0.44);
+  background-color: #5e4e6d;
 }
 .icon-close .close {
   background-size: cover;
