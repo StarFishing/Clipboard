@@ -32,8 +32,27 @@ export default {
       current: 0
     }
   },
+  created () {
+    this.$router.push({ name: 'Clipboard' })
+  },
   methods: {
     changeBackground (index) {
+      switch (index) {
+        case 0:
+          this.$router.push({ name: 'Clipboard' })
+          break
+        case 1:
+          this.$router.push({ name: 'TaskList' })
+          break
+        default:
+          break
+      }
+      // this.$router.push({ name: 'Clipboard' })
+
+      // if (this.index === 0) {
+      //   this.$router.push({ name: 'Clipboard' })
+      //   console.log(this.$router.path)
+      // }
       this.current = index
     },
     set_icon (index) {
