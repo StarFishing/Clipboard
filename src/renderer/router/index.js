@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 const Clipboard = () => import('@/components/Clipboard/index')
 const Home = () => import('@/components/Home')
+const TaskList = () => import('@/components/TaskList/index.vue')
 export default new Router({
   routes: [
     {
@@ -19,7 +20,7 @@ export default new Router({
         {
           path: '/TaskList',
           name: 'TaskList',
-          component: () => import('@/components/TaskList/index')
+          component: TaskList
         }
       ]
     },

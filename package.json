@@ -53,10 +53,13 @@
     }
   },
   "dependencies": {
-    "vue": "^2.5.16",
     "axios": "^0.18.0",
+    "better-scroll": "^2.0.0-alpha.19",
+    "vue": "^2.5.16",
     "vue-electron": "^1.0.6",
+    "vue-prismjs": "^1.2.0",
     "vue-router": "^3.0.1",
+    "vuedraggable": "^2.23.0",
     "vuex": "^3.0.1",
     "vuex-electron": "^1.0.0"
   },

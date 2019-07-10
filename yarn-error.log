@@ -1,21 +1,20 @@
 Arguments: 
-  /usr/local/Cellar/node/12.4.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js
+  /usr/local/Cellar/node@10/10.16.0/bin/node /usr/local/Cellar/yarn/1.16.0/libexec/bin/yarn.js add -s vue-prismjs
 
 PATH: 
-  /usr/local/mysql/bin:/Users/xiaoxin/Downloads/flutter/bin:/Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:.:/usr/local/bin/python
+  /usr/local/mysql/bin:/Users/xiaoxin/Downloads/flutter/bin:/usr/local/opt/node@10/bin:/Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/mysql/bin:/Users/xiaoxin/Downloads/flutter/bin:/usr/local/opt/node@10/bin:/Library/Java/JavaVirtualMachines/jdk-12.0.1.jdk/Contents/Home/bin:.:/usr/local/bin/python:.:/usr/local/bin/python
 
 Yarn version: 
   1.16.0
 
 Node version: 
-  12.4.0
+  10.16.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: http://r.cnpmjs.org/accessibility-developer-tools/download/accessibility-developer-tools-2.12.0.tgz: unexpected end of file
-      at Zlib.zlibOnError [as onerror] (zlib.js:168:17)
+  Error: EINVAL: invalid argument, unlink '/Users/xiaoxin/代码仓库/electron/vue/node_modules/babel-core/node_modules/source-map'
 
 npm manifest: 
   {
