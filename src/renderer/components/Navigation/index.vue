@@ -45,7 +45,7 @@ export default {
 }
 </script>
     
-<style>
+<style scoped>
 .navigationWrapper {
   position: relative;
   width: 100%;

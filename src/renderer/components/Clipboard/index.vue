@@ -1,18 +1,25 @@
 <template>
   <div class="clipWrapper"
        ref="wrapper">
-    <div class="contentitems"
+    <div class="contentsWrapper"
          v-if="clipList.length">
-      <div class="items"
-           v-for="(item,index) in clipList"
-           :key="index">
+      <div class="contentitems">
+        <div class="items"
+             v-for="(item,index) in clipList"
+             :key="index">
 
-        <div class="head">Ctr</div>
-        <div class="content"
-             v-text="item.content">
-          <!-- <prism language="bash"
+          <div class="head">
+            <span>Ctr</span>
+            <span class="close"
+                  @click="deleteitems(index)"></span>
+          </div>
+
+          <div class="content"
+               v-text="item.content">
+            <!-- <prism language="bash"
                  :plugins="['command-line']"
                  :code="item.content"></prism> -->
+          </div>
         </div>
       </div>
     </div>
@@ -22,7 +29,6 @@
 </template>
 <script>
 import { ipcRenderer } from 'electron'
-import BScroll from 'better-scroll'
 export default {
   created () {
     // let ipcRenderer = this.$electron.ipcRenderer
@@ -43,9 +49,6 @@ export default {
     })
   },
   mounted () {
-    this.$nextTick(() => {
-      this.scroll = new BScroll(this.$refs.wrapper, {})
-    })
   },
   components: {
   },
@@ -57,24 +60,9 @@ export default {
   methods: {
     additems () {
       console.log('success')
-    }
-  },
-  watch: {
-    'clipList': {
-      handler: function (newvalue, oldvalue) {
-        this.$nextTick(() => {
-          this.scroll = new BScroll(this.$refs.wrapper, {
-            mouseWheel: {
-              speed: 20,
-              invert: false,
-              easeTime: 300
-            },
-            preventDefaultException: { className: /(^|\s)items(\s|$)/ },
-            click: true
-          })
-        })
-      },
-      deep: true
+    },
+    deleteitems (index) {
+      this.clipList.splice(index, 1)
     }
   }
 }
@@ -85,11 +73,21 @@ export default {
   height: 100%;
   overflow: hidden;
 }
+.contentsWrapper {
+  position: relative;
+  height: 100%;
+}
 .contentitems {
-  /* margin: 0 auto; */
-  padding: 20px 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: -20px;
+  padding: 20px 20px 40px 60px;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 100%;
 }
 @media screen and (max-width: 700px) {
   .contentitems {
@@ -114,11 +112,45 @@ export default {
   padding: 5px 10px;
   display: flex;
   align-items: center;
+  position: relative;
+}
+.close {
+  right: 5px;
+  position: absolute;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: right;
+  transform: translateX(0);
+  background-image: url("~@/assets/icons/叉号.png");
+  transition: all 0.3s;
+  color: white;
+  overflow: hidden;
+}
+.close:hover {
+  background-color: darkgrey;
+  border-radius: 20px;
+  width: 40px;
+  background-image: none;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+.close:hover:before {
+  content: "清除";
 }
 .content {
   padding: 5px 10px;
   font-size: 12px;
-  font-family: monospace;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue,
+    PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  color: #333;
+  line-height: 1.5;
+  font-size: 13px;
+  font-weight: 400;
 }
 .loading {
   background-image: url("~@/assets/背景.png");
