@@ -5,6 +5,7 @@ Vue.use(Router)
 const Clipboard = () => import('@/components/Clipboard/index')
 const Home = () => import('@/components/Home')
 const TaskList = () => import('@/components/TaskList/index.vue')
+const Property = () => import('@/components/property/index.vue')
 export default new Router({
   routes: [
     {
@@ -21,6 +22,11 @@ export default new Router({
           path: '/TaskList',
           name: 'TaskList',
           component: TaskList
+        },
+        {
+          path: '/Property',
+          name: 'Property',
+          component: Property
         }
       ]
     },

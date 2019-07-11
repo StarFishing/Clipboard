@@ -44,6 +44,9 @@ export default {
         case 1:
           this.$router.push({ name: 'TaskList' })
           break
+        case 2:
+          this.$router.push({ name: 'Property' })
+          break
         default:
           break
       }
