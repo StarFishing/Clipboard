@@ -38,7 +38,8 @@ function createWindow () {
     }
   })
   require('./tray.js')
-  require('./windowfocus.js')
+  require('./Files/Clip.js')
+  require('./Files/ClipFile.js')
   // tray()
   mainWindow.loadURL(winURL)
 
