@@ -23,7 +23,9 @@
         </transition-group>
       </draggable>
     </div> -->
+
     <div class="scroll">
+      <inputlabel></inputlabel>
       <div class="undoneWrapper">
         <draggable tag="ul"
                    v-model="taskList"
@@ -35,7 +37,7 @@
                             tag="ul">
             <li class="list-group-item"
                 v-for="(element,index) in taskList"
-                :key="index">
+                :key="element.role">
               <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
                  @click=" element.fixed=! element.fixed"
                  aria-hidden="true"></i>
@@ -56,7 +58,7 @@
                             tag="ul">
             <li class="list-group-item"
                 v-for="(element,index) in list2"
-                :key="index">
+                :key="element.role">
               <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
                  @click=" element.fixed=! element.fixed"
                  aria-hidden="true"></i>
@@ -73,9 +75,11 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
+import inputlabel from '@/generalComponents/inputlabel'
 export default {
   components: {
-    draggable
+    draggable,
+    inputlabel
   },
   data () {
     return {
@@ -101,22 +105,22 @@ export default {
           fixed: false
         },
         {
-          role: 4,
+          role: 5,
           content: '是是是吃饭',
           fixed: false
         },
         {
-          role: 4,
+          role: 6,
           content: '是是是吃饭',
           fixed: false
         },
         {
-          role: 4,
+          role: 7,
           content: '是是是吃饭',
           fixed: false
         },
         {
-          role: 4,
+          role: 8,
           content: '是是是吃饭',
           fixed: false
         }
@@ -205,8 +209,10 @@ export default {
 }
 
 .ghost {
-  opacity: 0.5;
-  background: #c8ebfb;
+  /* opacity: 0.5; */
+  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+  /* background: #c8ebfb; */
+  border-radius: 10px;
 }
 
 .list-group {
@@ -218,13 +224,16 @@ export default {
   display: block;
   padding: 0.75rem 1.25rem;
   margin-bottom: -1px;
-  background-color: #fff;
+  background-color: #7a5e87;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 5px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   /* cursor: move; */
 }
 .list-group-item:first-child {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 .list-group-item:last-child {
   border-bottom-left-radius: 10px;

@@ -5,5 +5,9 @@
 //   if (err) throw err
 //   console.log('文件已被保存')
 // })
+// fs.writeFile('d://Clipdata/Clip.json', 'hello', 'utf8', err => {
+//   if (err) throw err
+//   console.log('文件已被保存')
+// })
 //   console.log('path success')
 // })
