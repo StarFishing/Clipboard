@@ -1,0 +1,33 @@
+.kr-text,
+.kr-view,
+body {
+  font-family: Avenir, Avenir Next, Segoe UI, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #f7f9fa;
+}
+.kr-text,
+.kr-view {
+  background-color: initial;
+  border-style: solid;
+  border-width: 0;
+  color: initial;
+  flex-basis: auto;
+  font-size: medium;
+  font-weight: 400;
+  line-height: normal;
+  list-style: none;
+  margin: 0;
+  min-height: 0;
+  min-width: 0;
+  padding: 0;
+  position: relative;
+  text-align: initial;
+  text-decoration: initial;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.kr-view {
+  display: flex;
+  flex-shrink: 0;
+}
