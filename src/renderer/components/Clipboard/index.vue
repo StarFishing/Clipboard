@@ -151,6 +151,7 @@ export default {
   line-height: 1.5;
   font-size: 13px;
   font-weight: 400;
+  overflow-wrap: break-word;
 }
 .loading {
   background-image: url("~@/assets/背景.png");
