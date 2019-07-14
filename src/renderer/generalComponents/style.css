@@ -1,10 +1,10 @@
 .kr-text,
 .kr-view,
-body {
+/* body {
   font-family: Avenir, Avenir Next, Segoe UI, Helvetica, Arial, sans-serif;
   font-size: 14px;
   color: #f7f9fa;
-}
+} */
 .kr-text,
 .kr-view {
   background-color: initial;
