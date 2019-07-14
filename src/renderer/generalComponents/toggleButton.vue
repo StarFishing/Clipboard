@@ -11,14 +11,28 @@
 </template>
 <script>
 export default {
+  props: {
+    filter: false
+  },
   data () {
     return {
-      toggleflag: false
+      toggleflag: this.filter
+    }
+  },
+  mounted () {
+    this.changestate()
+  },
+  watch: {
+    toggleflag () {
+      this.changestate()
     }
   },
   methods: {
     toggle () {
       this.toggleflag = !this.toggleflag
+      this.$emit('filteritems')
+    },
+    changestate () {
       if (this.toggleflag) {
         this.$refs.circle.style.transform = 'translateX(16px)'
         this.$refs.wrapper.style.background = 'rgb(61, 204, 61)'
