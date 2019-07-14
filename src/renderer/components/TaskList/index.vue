@@ -1,72 +1,96 @@
 <template>
   <div class="listWrapper">
-    <!-- <div>
-      <draggable class="list-group"
-                 tag="ul"
-                 v-model="taskList"
-                 v-bind="dragOptions"
-                 :move="onMove"
-                 @start="isDragging=true"
-                 @end="isDragging=false">
-        <transition-group type="transition"
-                          :name="'flip-list'">
-
-          <li class="list-group-item"
-              v-for="element in taskList"
-              :key="element.role">
-            <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
-               @click=" element.fixed=! element.fixed"
-               aria-hidden="true"></i>
-            {{element.content}}
-            <span class="badge">{{element.role}}</span>
-          </li>
-        </transition-group>
-      </draggable>
-    </div> -->
-
     <div class="scroll">
-      <inputlabel></inputlabel>
+
       <div class="undoneWrapper">
-        <draggable tag="ul"
-                   v-model="taskList"
-                   v-bind="dragOptions"
-                   :move="onMove"
-                   style=" height: inherit;">
-          <transition-group name="no"
-                            class="list-group"
-                            tag="ul">
-            <li class="list-group-item"
-                v-for="(element,index) in taskList"
-                :key="element.role">
-              <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
-                 @click=" element.fixed=! element.fixed"
-                 aria-hidden="true"></i>
-              {{element.content}}
-              <span class="badge">{{element.role}}</span>
-            </li>
-          </transition-group>
-        </draggable>
+        <div class="title">
+          <div class="description">My Tasks</div>
+          <div class="titleicon">
+            <toggle-button @filteritems="filteritems"
+                           :filter="true"></toggle-button>
+          </div>
+        </div>
+        <div class="add"
+             style="cursor:pointer;user-select: none;"
+             @click="additem">
+          <div style="display:flex; align-items: center;justify-content: center;flex:0 0 40px">
+            <svg-icon icon-class="添加"
+                      style="width: 12px;height: 12px;vertical-align: sub;"></svg-icon>
+          </div>
+          <div style="flex: 1;font-size: 16px;display: flex;color: rgb(0, 170, 255);align-items: center;">Add...</div>
+        </div>
+        <transition name="collpse">
+          <div class="taskitem"
+               v-show="hiddenitems">
+            <draggable tag="ul"
+                       v-model="taskList"
+                       v-bind="dragOptions"
+                       :move="onMove"
+                       style=" height: 100%;">
+              <transition-group name="add"
+                                class="list-group"
+                                tag="ul">
+                <li class="list-group-item"
+                    v-for="(element) in taskList"
+                    :key="element.time">
+                  <div class="head">
+                    <div class="finish"
+                         style="flex:0 0 40px">
+                      <success-circle :flag.sync="element.finish"></success-circle>
+                    </div>
+                    <inputlabel style="flex:1"
+                                @valitecontent="valitecontent"
+                                :content.sync="element.content"></inputlabel>
+                    <div class="delete">
+                      <svg-icon @click="deletitem(element)"
+                                icon-class="移除"
+                                style="  width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
+                    </div>
+                  </div>
+                </li>
+              </transition-group>
+            </draggable>
+          </div>
+        </transition>
       </div>
       <div class="doneWrapper">
-        <draggable tag="ul"
-                   v-model="list2"
-                   v-bind="dragOptions"
-                   :move="onMove"
-                   style=" height: inherit;">
-          <transition-group name="no"
-                            class="list-group"
-                            tag="ul">
-            <li class="list-group-item"
-                v-for="(element,index) in list2"
-                :key="element.role">
-              <i :class="element.fixed? 'fa fa-anchor' : 'glyphicon glyphicon-pushpin'"
-                 @click=" element.fixed=! element.fixed"
-                 aria-hidden="true"></i>
-              {{element.content}}
-              <span class="badge">{{element.role}}</span>
-            </li>
-          </transition-group>
-        </draggable>
+        <div class="title">
+          <div class="description">Has Finish</div>
+          <div class="titleicon">
+            <svg-icon icon-class="星星"
+                      style="  width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
+          </div>
+        </div>
+        <div class="taskitem">
+          <draggable tag="ul"
+                     v-model="list2"
+                     v-bind="dragOptions"
+                     :move="onMove"
+                     style=" height: 100%;">
+            <transition-group name="finish"
+                              class="list-group"
+                              tag="ul">
+              <li class="list-group-item"
+                  v-for="(element) in list2"
+                  :key="element.time">
+                <div class="head">
+                  <div class="finish"
+                       style="flex:0 0 40px">
+                    <success-circle :flag.sync="element.finish"></success-circle>
+                  </div>
+                  <inputlabel style="flex:1"
+                              :content.sync="element.content"></inputlabel>
+                  <div class="delete">
+                    <svg-icon @click="fdeletitem(element)"
+                              icon-class="移除"
+                              style="  width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
+                  </div>
+                </div>
+              </li>
+            </transition-group>
+          </draggable>
+        </div>
+
       </div>
 
     </div>
@@ -76,64 +100,31 @@
 <script>
 import draggable from 'vuedraggable'
 import inputlabel from '@/generalComponents/inputlabel'
+import successCircle from '@/generalComponents/successCircle'
+import toggleButton from '@/generalComponents/toggleButton'
+import task from './component/task'
 export default {
   components: {
     draggable,
-    inputlabel
+    inputlabel,
+    task,
+    successCircle,
+    toggleButton
   },
   data () {
     return {
-      taskList: [
-        {
-          role: 1,
-          content: '去吃饭',
-          fixed: false
-        },
-        {
-          role: 2,
-          content: '去学习',
-          fixed: false
-        },
-        {
-          role: 3,
-          content: '去玩耍',
-          fixed: false
-        },
-        {
-          role: 4,
-          content: '是是是吃饭',
-          fixed: false
-        },
-        {
-          role: 5,
-          content: '是是是吃饭',
-          fixed: false
-        },
-        {
-          role: 6,
-          content: '是是是吃饭',
-          fixed: false
-        },
-        {
-          role: 7,
-          content: '是是是吃饭',
-          fixed: false
-        },
-        {
-          role: 8,
-          content: '是是是吃饭',
-          fixed: false
-        }
-      ],
+      taskList: [],
       isDragging: false,
       editable: true,
       delayedDragging: false,
-      list2: []
+      list2: [],
+      hiddenitems: true
     }
   },
   methods: {
-    addPeople () {
-
+    additem () {
+      let obj = { time: parseInt(new Date().getTime()), content: '', fixed: false, finish: false }
+      this.taskList.unshift(obj)
     },
     onMove ({ relatedContext, draggedContext }) {
       const relatedElement = relatedContext.element
@@ -141,6 +132,43 @@ export default {
       return (
         (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed
       )
+    },
+    deletitem (element) {
+      this.taskList.forEach((value, index) => {
+        if (value.time === element.time) {
+          this.taskList.splice(index, 1)
+        }
+      })
+    },
+    fdeletitem (element) {
+      this.list2.forEach((value, index) => {
+        if (value.time === element.time) {
+          this.list2.splice(index, 1)
+        }
+      })
+    },
+    filteritems () {
+      this.hiddenitems = !this.hiddenitems
+    },
+    valitecontent (text) {
+      let arr = this.taskList
+      let arr2 = this.list2
+      if (text === '') {
+        // this.taskList.shift()
+        this.taskList = arr.filter((value, index) => {
+          if (value.content === '') {
+            return false
+          }
+          return true
+        })
+
+        this.list2 = arr2.filter((value, index) => {
+          if (value.content === '') {
+            return false
+          }
+          return true
+        })
+      }
     }
   },
   computed: {
@@ -187,13 +215,82 @@ export default {
 }
 .undoneWrapper,
 .doneWrapper {
-  width: 250px;
-  height: 300px;
+  width: 320px;
+  height: 100%;
   flex: 0 0 250px;
   margin: 10px;
-  background: white;
   border-radius: 10px;
   overflow: hidden;
+}
+.listWrapper li {
+  user-select: none;
+}
+.title {
+  display: flex;
+  height: 60px;
+  margin-bottom: 20px;
+  align-items: center;
+  /* font-size: 16px; */
+  justify-content: space-between;
+  color: white;
+  border-bottom: 1px solid;
+  border-width: 2px;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.title .description {
+  font-size: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.undoneWrapper .head,
+.undoneWrapper .add,
+.doneWrapper .head {
+  background: white;
+  border-radius: 10px;
+  width: 100%;
+  min-height: 40px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
+}
+.undoneWrapper .head .finish,
+.doneWrapper .head .finish {
+  display: flex;
+  justify-content: center;
+}
+.undoneWrapper .head .textcircle,
+.doneWrapper .head .textcircle {
+  margin-top: 10px;
+  width: 22px;
+  height: 22px;
+  background-color: white;
+  position: absolute;
+  border-radius: 100%;
+  border-width: 2px;
+  border: 2px solid;
+  border-color: rgb(0, 170, 255);
+  transform: scaleX(1) scaleY(1);
+  opacity: 1;
+}
+.undoneWrapper .head .delete,
+.doneWrapper .head .delete {
+  opacity: 0;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 9px;
+  cursor: pointer;
+}
+.undoneWrapper .head:hover .delete,
+.doneWrapper .head:hover .delete {
+  opacity: 1;
+}
+.undoneWrapper .taskitem {
+  height: 100%;
+}
+.doneWrapper .taskitem {
+  height: 100%;
 }
 @media screen and (max-width: 700px) {
   .scroll {
@@ -222,13 +319,15 @@ export default {
 .list-group-item {
   position: relative;
   display: block;
-  padding: 0.75rem 1.25rem;
+  /* padding: 0.75rem 1.25rem; */
   margin-bottom: -1px;
   background-color: #7a5e87;
   border-radius: 10px;
   overflow: hidden;
-  margin: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  margin: 5px 0;
+  /* border: 1px solid rgba(0, 0, 0, 0.125); */
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
   /* cursor: move; */
 }
 .list-group-item:first-child {
@@ -258,6 +357,73 @@ export default {
   vertical-align: middle;
   background-color: #777;
   border-radius: 10px;
+}
+/* 进入之前和离开之后的style */
+.add-enter {
+  opacity: 0;
+  transform: translateY(-40px);
+}
+.add-leave-to {
+  transform: scaleX(0.5) scaleY(0.5);
+  opacity: 0;
+  /* transform: translateX(100px); */
+}
+/* 进入过程和离开过程的过渡 */
+.add-enter-active,
+.add-leave-active {
+  transition: all 0.5s ease;
+}
+/* 离开时变为absolute，导致下方上升 */
+.add-leave-active {
+  position: absolute;
+}
+/* 移动时的过渡时间 */
+.add-move {
+  transition: all 0.5s ease;
+}
+
+/* 进入之前的style */
+/* .finish-enter {
+  opacity: 0;
+  transform: translateY(-40px);
+} */
+.finish-leave-to {
+  transform: scaleX(0.5) scaleY(0.5);
+  opacity: 0;
+  /* transform: translateX(100px); */
+}
+/* 进入过程和离开过程的过渡 */
+.finish-enter-active,
+.finish-leave-active {
+  transition: all 0.5s ease;
+}
+/* 离开时变为absolute，导致下方上升 */
+.finish-leave-active {
+  position: absolute;
+}
+/* 移动时的过渡时间 */
+.finish-move {
+  transition: all 0.2s ease;
+}
+
+.collpse-enter {
+  opacity: 0;
+  transform: scaleX(1.2) scaleY(1.2) translateX(100%) scaleX(1) scaleY(1);
+}
+.collpse-leave-to {
+  opacity: 0;
+  transform: scaleX(0) scaleY(0);
+
+  /* transform: translateX(100px); */
+}
+/* 进入过程和离开过程的过渡 */
+.collpse-enter-active,
+.collpse-leave-active {
+  transition: all 0.5s ease;
+}
+/* 离开时变为absolute，导致下方上升 */
+.collpse-leave-active {
+  position: absolute;
 }
 .glyphicon-pushpin:before {
   content: "\E146";
