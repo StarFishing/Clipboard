@@ -2,7 +2,8 @@
   <div class="listWrapper">
     <div class="scroll">
 
-      <div class="undoneWrapper">
+      <div class="undoneWrapper"
+           ref="getheight">
         <div class="title">
           <div class="description">My Tasks</div>
           <div class="titleicon">
@@ -21,12 +22,13 @@
         </div>
         <transition name="collpse">
           <div class="taskitem"
-               v-show="hiddenitems">
+               v-show="hiddenitems"
+               ref="setheight">
             <draggable tag="ul"
                        v-model="taskList"
                        v-bind="dragOptions"
                        :move="onMove"
-                       style=" height: 100%;">
+                       class="controlitemWrapper">
               <transition-group name="add"
                                 class="list-group"
                                 tag="ul">
@@ -53,7 +55,8 @@
           </div>
         </transition>
       </div>
-      <div class="doneWrapper">
+      <div class="doneWrapper"
+           ref="getheight2">
         <div class="title">
           <div class="description">Has Finish</div>
           <div class="titleicon">
@@ -61,12 +64,13 @@
                       style="  width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
           </div>
         </div>
-        <div class="taskitem">
+        <div class="taskitem"
+             ref=setheight2>
           <draggable tag="ul"
                      v-model="list2"
                      v-bind="dragOptions"
                      :move="onMove"
-                     style=" height: 100%;">
+                     class="controlitemWrapper">
             <transition-group name="finish"
                               class="list-group"
                               tag="ul">
@@ -121,7 +125,20 @@ export default {
       hiddenitems: true
     }
   },
+  mounted () {
+    this.resetheight()
+    window.addEventListener('resize', () => {
+      this.resetheight()
+    })
+  },
   methods: {
+    resetheight () {
+      // 动态计算任务列表的高度
+      let height = this.$refs.getheight.clientHeight - 100 - 20
+      this.$refs.setheight.style.height = height + 'px'
+      let height2 = this.$refs.getheight2.clientHeight - 60 - 20
+      this.$refs.setheight2.style.height = height2 + 'px'
+    },
     additem () {
       let obj = { time: parseInt(new Date().getTime()), content: '', fixed: false, finish: false }
       this.taskList.unshift(obj)
@@ -216,7 +233,6 @@ export default {
 .undoneWrapper,
 .doneWrapper {
   width: 320px;
-  height: 100%;
   flex: 0 0 250px;
   margin: 10px;
   border-radius: 10px;
@@ -286,11 +302,20 @@ export default {
 .doneWrapper .head:hover .delete {
   opacity: 1;
 }
-.undoneWrapper .taskitem {
-  height: 100%;
-}
+.undoneWrapper .taskitem,
 .doneWrapper .taskitem {
-  height: 100%;
+  position: relative;
+  height: 300px;
+  margin-right: -20px;
+  padding-right: 20px;
+  overflow-y: scroll;
+}
+.controlitemWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 20px;
 }
 @media screen and (max-width: 700px) {
   .scroll {
