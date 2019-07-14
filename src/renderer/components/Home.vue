@@ -30,7 +30,6 @@ export default {
 
 <style>
 .homepage {
-  background-color: antiquewhite;
   position: absolute;
   top: 50px;
   bottom: 0;
