@@ -42,8 +42,11 @@ export default {
   margin: 0;
   padding: 0;
 }
-
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   font-family: "Source Sans Pro", sans-serif;
 }
 pre,
