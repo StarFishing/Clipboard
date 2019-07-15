@@ -8,8 +8,10 @@ let focusclip = '' // 在本应用复制的代码不会在失去焦点后在复�
 let interval = 1000 // 设置间隔
 // 窗口获得焦点时清除定时器
 win.on('focus', () => {
-  win.webContents.send('windowFocus')
   clearInterval(timer)
+  win.webContents.send('windowFocus', { focusclip })
+
+  count = 0
   listenfocus()
 })
 // 窗口失去焦点进行剪贴板监听
@@ -22,8 +24,11 @@ win.on('blur', () => {
 })
 function sendMessage () {
   let text = clipboard.readText().trim()
+  console.log(text)
   // 判断剪贴板是否为空，并且与上次不同
   if (text !== '' && clipcach.trim() !== text && focusclip !== text) {
+    console.log(clipcach)
+    console.log(focusclip)
     clipcach = text
     let content = text
     win.webContents.send('addClip', { content })
@@ -38,6 +43,7 @@ function sendNotify () {
 }
 function listenfocus () {
   focustimer = setInterval(function () {
+    console.log('testwww')
     focusclip = clipboard.readText().trim()
   }, interval)
 }
