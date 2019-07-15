@@ -32,8 +32,8 @@ import { ipcRenderer } from 'electron'
 export default {
   created () {
     // let ipcRenderer = this.$electron.ipcRenderer
-    ipcRenderer.on('windowFocus', () => {
-      console.log('windowFocus')
+    ipcRenderer.on('windowFocus', (e, info) => {
+      console.log(info)
     })
     ipcRenderer.on('addClip', (e, info) => {
       console.log(info)
