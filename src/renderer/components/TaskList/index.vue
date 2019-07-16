@@ -103,9 +103,10 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
-import taskInput from './component/task'
+import taskInput from './component/taskInput'
 import successCircle from '@/generalComponents/successCircle'
 import toggleButton from '@/generalComponents/toggleButton'
+import * as datastore from '@/api/TaskList'
 export default {
   components: {
     draggable,
@@ -123,6 +124,10 @@ export default {
       hiddenitems: true
     }
   },
+  created () {
+    this.taskList = datastore.getTasklist()
+    this.list2 = datastore.getEndTasklist()
+  },
   mounted () {
     this.resetheight()
     window.addEventListener('resize', () => {
@@ -138,7 +143,7 @@ export default {
       this.$refs.setheight2.style.height = height2 + 'px'
     },
     additem () {
-      if (this.hiddenitems) {
+      if (!this.hiddenitems) {
         return
       }
       let obj = { time: parseInt(new Date().getTime()), content: '', fixed: false, finish: false }
@@ -208,6 +213,11 @@ export default {
       this.$nextTick(() => {
         this.delayedDragging = false
       })
+    },
+    '$route' (to, from) {
+      console.log('route test')
+      datastore.saveTasklist(this.taskList)
+      datastore.saveEndTasklist(this.list2)
     }
   }
 }
