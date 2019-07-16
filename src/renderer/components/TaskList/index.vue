@@ -40,9 +40,9 @@
                          style="flex:0 0 40px">
                       <success-circle :flag.sync="element.finish"></success-circle>
                     </div>
-                    <inputlabel style="flex:1"
-                                @valitecontent="valitecontent"
-                                :content.sync="element.content"></inputlabel>
+                    <taskInput style="flex:1"
+                               @valitecontent="valitecontent"
+                               :content.sync="element.content"></taskInput>
                     <div class="delete">
                       <svg-icon @click="deletitem(element)"
                                 icon-class="移除"
@@ -82,8 +82,8 @@
                        style="flex:0 0 40px">
                     <success-circle :flag.sync="element.finish"></success-circle>
                   </div>
-                  <inputlabel style="flex:1"
-                              :content.sync="element.content"></inputlabel>
+                  <taskInput style="flex:1"
+                             :content.sync="element.content"></taskInput>
                   <div class="delete">
                     <svg-icon @click="fdeletitem(element)"
                               icon-class="移除"
@@ -103,15 +103,13 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
-import inputlabel from '@/generalComponents/inputlabel'
+import taskInput from './component/task'
 import successCircle from '@/generalComponents/successCircle'
 import toggleButton from '@/generalComponents/toggleButton'
-import task from './component/task'
 export default {
   components: {
     draggable,
-    inputlabel,
-    task,
+    taskInput,
     successCircle,
     toggleButton
   },

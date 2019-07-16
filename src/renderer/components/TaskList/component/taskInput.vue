@@ -35,13 +35,9 @@ export default {
     if (this.text === '') {
       this.$refs.content.focus()
     }
-    // else {
-    //   this.$refs.content.blur()
-    // }
   },
   methods: {
     changeContent () {
-      // this.$refs.pre.innerHTML = this.$refs.content.value
     },
     getfoucus () {
       if (this.edit) {
@@ -49,9 +45,6 @@ export default {
         // 直接放在这里会有延迟导致聚焦失败
         this.$refs.content.focus()
       }
-      // if (!this.edit) {
-      //   this.$refs.content.focus()
-      // }
     },
     onfocus () {
       this.$refs.contenWrppaer.style.width = '210px'
@@ -71,7 +64,6 @@ export default {
   background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
-  /* margin-bottom: 2px; */
 }
 .itemWrpper .contenWrppaer {
   width: 180px;
@@ -116,6 +108,5 @@ export default {
   outline: 0;
   resize: none;
   overflow: hidden;
-  /* height: 22px; */
 }
 </style>
