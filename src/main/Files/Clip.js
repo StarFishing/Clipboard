@@ -9,10 +9,9 @@ let interval = 1000 // 设置间隔
 // 窗口获得焦点时清除定时器
 win.on('focus', () => {
   clearInterval(timer)
-  win.webContents.send('windowFocus', { focusclip })
-
   count = 0
   listenfocus()
+  win.webContents.send('windowFocus', { focusclip })
 })
 // 窗口失去焦点进行剪贴板监听
 win.on('blur', () => {
