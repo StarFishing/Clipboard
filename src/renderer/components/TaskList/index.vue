@@ -140,6 +140,9 @@ export default {
       this.$refs.setheight2.style.height = height2 + 'px'
     },
     additem () {
+      if (this.hiddenitems) {
+        return
+      }
       let obj = { time: parseInt(new Date().getTime()), content: '', fixed: false, finish: false }
       this.taskList.unshift(obj)
     },
@@ -270,6 +273,9 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
 }
+.undoneWrapper .add {
+  margin-bottom: 10px;
+}
 .undoneWrapper .head .finish,
 .doneWrapper .head .finish {
   display: flex;
@@ -315,7 +321,8 @@ export default {
   top: 0;
   left: 0;
   bottom: 0;
-  right: 20px;
+  right: 0;
+  padding: 0 0 5px 0;
 }
 @media screen and (max-width: 700px) {
   .scroll {
@@ -356,13 +363,12 @@ export default {
   /* cursor: move; */
 }
 .list-group-item:first-child {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  margin-top: 0;
 }
-.list-group-item:last-child {
+/* .list-group-item:last-child {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
+} */
 .list-group-item i {
   cursor: pointer;
 }
@@ -437,14 +443,15 @@ export default {
 }
 .collpse-leave-to {
   opacity: 0;
-  transform: scaleX(0) scaleY(0);
+  transform: translateX(100px);
+  /* transform: scaleX(0) scaleY(0); */
 
   /* transform: translateX(100px); */
 }
 /* 进入过程和离开过程的过渡 */
 .collpse-enter-active,
 .collpse-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 /* 离开时变为absolute，导致下方上升 */
 .collpse-leave-active {
