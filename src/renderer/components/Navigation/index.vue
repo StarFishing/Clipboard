@@ -45,7 +45,7 @@ export default {
     },
     changebackgroud () {
       this.toggle = !this.toggle
-      const csstext = '#app{height:100%;background-image: url("https://img.pc841.com/2018/0730/20180730081702510.jpg");background-repeat: no-repeat;background-size: cover;}.homepage {background: none} .sidebarWrapper {background: none;}.navigationWrapper {background: none;}'
+      const csstext = '#app{height:100%;background-image: url("https://img.pc841.com/2018/0730/20180730081702510.jpg");background-repeat: no-repeat;background-size: cover;}.homepage {background: none} .sidebarWrapper {background: none;}.navigationWrapper {background: none;}   .shadow {background-color: rgba(255, 255, 255, 0.32);}'
       if (this.toggle) {
         if (document.head.lastChild.innerText !== '') {
           const style = document.createElement('style')
