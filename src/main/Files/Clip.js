@@ -10,7 +10,6 @@ let interval = 1000 // 设置间隔
 win.on('focus', () => {
   clearInterval(timer)
   win.webContents.send('windowFocus', { focusclip })
-
   count = 0
   listenfocus()
 })
@@ -24,11 +23,8 @@ win.on('blur', () => {
 })
 function sendMessage () {
   let text = clipboard.readText().trim()
-  console.log(text)
   // 判断剪贴板是否为空，并且与上次不同
   if (text !== '' && clipcach.trim() !== text && focusclip !== text) {
-    console.log(clipcach)
-    console.log(focusclip)
     clipcach = text
     let content = text
     win.webContents.send('addClip', { content })
@@ -43,7 +39,6 @@ function sendNotify () {
 }
 function listenfocus () {
   focustimer = setInterval(function () {
-    console.log('testwww')
     focusclip = clipboard.readText().trim()
   }, interval)
 }
