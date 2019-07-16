@@ -33,10 +33,8 @@ export default {
   created () {
     // let ipcRenderer = this.$electron.ipcRenderer
     ipcRenderer.on('windowFocus', (e, info) => {
-      console.log(info)
     })
     ipcRenderer.on('addClip', (e, info) => {
-      console.log(info)
       if (this.clipList.length) {
         if (info.content === this.clipList[this.clipList.length - 1].content) {
           return false

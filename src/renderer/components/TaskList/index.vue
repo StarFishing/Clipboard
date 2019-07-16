@@ -40,9 +40,9 @@
                          style="flex:0 0 40px">
                       <success-circle :flag.sync="element.finish"></success-circle>
                     </div>
-                    <inputlabel style="flex:1"
-                                @valitecontent="valitecontent"
-                                :content.sync="element.content"></inputlabel>
+                    <taskInput style="flex:1"
+                               @valitecontent="valitecontent"
+                               :content.sync="element.content"></taskInput>
                     <div class="delete">
                       <svg-icon @click="deletitem(element)"
                                 icon-class="移除"
@@ -82,8 +82,8 @@
                        style="flex:0 0 40px">
                     <success-circle :flag.sync="element.finish"></success-circle>
                   </div>
-                  <inputlabel style="flex:1"
-                              :content.sync="element.content"></inputlabel>
+                  <taskInput style="flex:1"
+                             :content.sync="element.content"></taskInput>
                   <div class="delete">
                     <svg-icon @click="fdeletitem(element)"
                               icon-class="移除"
@@ -103,15 +103,14 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
-import inputlabel from '@/generalComponents/inputlabel'
+import taskInput from './component/taskInput'
 import successCircle from '@/generalComponents/successCircle'
 import toggleButton from '@/generalComponents/toggleButton'
-import task from './component/task'
+import * as datastore from '@/api/TaskList'
 export default {
   components: {
     draggable,
-    inputlabel,
-    task,
+    taskInput,
     successCircle,
     toggleButton
   },
@@ -124,6 +123,10 @@ export default {
       list2: [],
       hiddenitems: true
     }
+  },
+  created () {
+    this.taskList = datastore.getTasklist()
+    this.list2 = datastore.getEndTasklist()
   },
   mounted () {
     this.resetheight()
@@ -140,6 +143,9 @@ export default {
       this.$refs.setheight2.style.height = height2 + 'px'
     },
     additem () {
+      if (!this.hiddenitems) {
+        return
+      }
       let obj = { time: parseInt(new Date().getTime()), content: '', fixed: false, finish: false }
       this.taskList.unshift(obj)
     },
@@ -207,6 +213,11 @@ export default {
       this.$nextTick(() => {
         this.delayedDragging = false
       })
+    },
+    '$route' (to, from) {
+      console.log('route test')
+      datastore.saveTasklist(this.taskList)
+      datastore.saveEndTasklist(this.list2)
     }
   }
 }
@@ -270,6 +281,9 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 0px 0px 1px,
     rgba(0, 0, 0, 0.05) 0px 1px 2px 0px, rgba(0, 0, 0, 0.05) 0px 2px 8px 0px;
 }
+.undoneWrapper .add {
+  margin-bottom: 10px;
+}
 .undoneWrapper .head .finish,
 .doneWrapper .head .finish {
   display: flex;
@@ -316,6 +330,7 @@ export default {
   left: 0;
   bottom: 0;
   right: 20px;
+  padding: 0 0 5px 0;
 }
 @media screen and (max-width: 700px) {
   .scroll {
@@ -356,13 +371,12 @@ export default {
   /* cursor: move; */
 }
 .list-group-item:first-child {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  margin-top: 0;
 }
-.list-group-item:last-child {
+/* .list-group-item:last-child {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-}
+} */
 .list-group-item i {
   cursor: pointer;
 }
@@ -438,6 +452,7 @@ export default {
 .collpse-leave-to {
   opacity: 0;
   transform: scaleX(0) scaleY(0);
+  /* transform: scaleX(0) scaleY(0); */
 
   /* transform: translateX(100px); */
 }
