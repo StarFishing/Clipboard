@@ -118,7 +118,7 @@ export default {
   width: 100%;
   height: 50px;
   /* background-image: linear-gradient(135deg, #5efce8 10%, #736efe 100%); */
-  background: #7a5e87;
+  background: var(--homepage-start);
   -webkit-app-region: drag;
   border-radius: 0 25px 0 0;
   /* box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); */
