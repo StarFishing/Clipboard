@@ -9,7 +9,7 @@
         <svg-icon :icon-class="item.icon"
                   style="  width: 20px;height: 20px;vertical-align: sub;"></svg-icon>
       </span>
-      <span style="display:inline-block;vertical-align:middle"> {{item.title}} </span>
+      <span style="display:inline-block;vertical-align:middle;"> {{item.title}} </span>
 
     </div>
   </div>
@@ -41,6 +41,7 @@ export default {
           break
         case 2:
           this.$router.push({ name: 'Property' })
+          changeTheme(index)
           break
         default:
           break
@@ -74,6 +75,7 @@ export default {
   color: white;
   font-size: 14px;
   cursor: pointer;
+  user-select: none;
 }
 .shadow {
   background-color: #5e4e6d;
