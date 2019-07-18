@@ -243,7 +243,7 @@ export default {
 }
 .undoneWrapper,
 .doneWrapper {
-  width: 320px;
+  width: 250px;
   flex: 0 0 250px;
   margin: 10px;
   border-radius: 10px;
@@ -320,8 +320,8 @@ export default {
 .doneWrapper .taskitem {
   position: relative;
   height: 300px;
-  margin-right: -20px;
-  padding-right: 20px;
+  margin-right: -17px;
+  padding-right: 17px;
   overflow-y: scroll;
 }
 .controlitemWrapper {
