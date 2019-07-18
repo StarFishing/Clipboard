@@ -29,6 +29,12 @@ export default {
 </script>
 
 <style>
+:root {
+  --homepage-start: #7a5e87;
+  --homepage-end: #393b50;
+  --sidebar-start: #7a5e87;
+  --sidebar-end: #464c57;
+}
 .homepage {
   position: absolute;
   top: 50px;
@@ -36,7 +42,11 @@ export default {
   left: 0;
   right: 0;
   overflow: hidden;
-  background: linear-gradient(180deg, #7a5e87, #393b50);
+  background: linear-gradient(
+    180deg,
+    var(--homepage-start),
+    var(--homepage-end)
+  );
 }
 .fade-enter-to,
 .fade-leave {
@@ -54,9 +64,9 @@ export default {
 }
 
 .fade-enter-active {
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
 }
 .fade-leave-active {
-  transition: all 0.1s ease;
+  transition: all 0.3s ease;
 }
 </style>

@@ -5,7 +5,7 @@ let focustimer
 let count = 0
 let clipcach = '' // 暂存上次更改
 let focusclip = '' // 在本应用复制的代码不会在失去焦点后在复制回来
-let interval = 1000 // 设置间隔
+let interval = 500 // 设置间隔
 // 窗口获得焦点时清除定时器
 win.on('focus', () => {
   clearInterval(timer)
@@ -33,7 +33,7 @@ function sendMessage () {
   }
 }
 function sendNotify () {
-  if (count !== 0 && count % 1800 === 0) {
+  if (count !== 0 && count % 36000 === 0) {
     win.webContents.send('longtime')
   }
 }

@@ -5,44 +5,39 @@
          :key="index"
          :class="shadow(index)"
          @click="changeBackground(index)">
-      <span class="icon"
-            :class="set_icon(index)"></span>
-      <span style="display:inline-block;vertical-align:middle"> {{item.name}} </span>
+      <span class="icon">
+        <svg-icon :icon-class="item.icon"
+                  style="  width: 20px;height: 20px;vertical-align: sub;"></svg-icon>
+      </span>
+      <span style="display:inline-block;vertical-align:middle"> {{item.title}} </span>
 
     </div>
   </div>
 </template>
 <script>
+import changeTheme from '@/theme/colors'
+import sidebar from '@/common/sidebar'
 export default {
   data () {
     return {
-      items: [
-        {
-          'name': '粘贴板',
-          'icon_name': 'clip_icon'
-        },
-        {
-          'name': '任务列表',
-          'icon_name': 'task_icon'
-        }, {
-          'name': '常用属性',
-          'icon_name': 'attr_icon'
-        }
-      ],
+      items: [],
       current: 0
     }
   },
   created () {
     this.$router.push({ name: 'Clipboard' })
+    this.items = sidebar
   },
   methods: {
     changeBackground (index) {
       switch (index) {
         case 0:
           this.$router.push({ name: 'Clipboard' })
+          changeTheme(index)
           break
         case 1:
           this.$router.push({ name: 'TaskList' })
+          changeTheme(index)
           break
         case 2:
           this.$router.push({ name: 'Property' })
@@ -50,12 +45,6 @@ export default {
         default:
           break
       }
-      // this.$router.push({ name: 'Clipboard' })
-
-      // if (this.index === 0) {
-      //   this.$router.push({ name: 'Clipboard' })
-      //   console.log(this.$router.path)
-      // }
       this.current = index
     },
     set_icon (index) {
@@ -76,7 +65,7 @@ export default {
 .sidebarWrapper {
   float: left;
   width: 200px;
-  background: linear-gradient(180deg, #7a5e87, #464c57);
+  background: linear-gradient(180deg, var(--sidebar-start), var(--sidebar-end));
   height: 100%;
 }
 .item {
