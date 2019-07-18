@@ -30,10 +30,10 @@ export default {
 
 <style>
 :root {
-  --homepage-start: #7a5e87;
-  --homepage-end: #393b50;
-  --sidebar-start: #7a5e87;
-  --sidebar-end: #464c57;
+  --homepage-start: RGBA(135, 91, 123, 1);
+  --homepage-end: RGBA(56, 58, 79, 1);
+  --sidebar-start: RGBA(135, 91, 123, 1);
+  --sidebar-end: RGBA(71, 75, 87, 1);
 }
 .homepage {
   position: absolute;

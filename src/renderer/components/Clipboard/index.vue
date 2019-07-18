@@ -154,7 +154,7 @@ export default {
 .loading {
   background-image: url("~@/assets/背景.png");
   height: 100%;
-  background-size: 300px 300px;
+  background-size: 400px 400px;
   background-position: center;
   background-repeat: no-repeat;
 }

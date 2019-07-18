@@ -320,8 +320,8 @@ export default {
 .doneWrapper .taskitem {
   position: relative;
   height: 300px;
-  margin-right: -17px;
-  padding-right: 17px;
+  margin-right: -20px;
+  padding-right: 20px;
   overflow-y: scroll;
 }
 .controlitemWrapper {
