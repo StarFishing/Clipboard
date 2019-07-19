@@ -1,7 +1,11 @@
 <template>
   <div class="homepage">
-    <Sidebar></Sidebar>
-    <transition name="fade">
+    <Sidebar @currenIndex="judgeTransition"></Sidebar>
+    <transition name="fade"
+                v-on:before-enter="beforeEnter"
+                v-on:enter="enter"
+                v-on:before-leave="beforeLeave"
+                v-on:leave="leave">
       <keep-alive>
         <router-view :key="key" />
       </keep-alive>
@@ -14,7 +18,11 @@ import Sidebar from '@/components/Sidebar/index'
 import Clipboard from '@/components/Clipboard/index'
 export default {
   data () {
-    return {}
+    return {
+      currentRout: 0,
+      tranlateValue: 100,
+      leaveValue: -100
+    }
   },
   computed: {
     key () {
@@ -24,6 +32,42 @@ export default {
   components: {
     Sidebar,
     Clipboard
+  },
+  methods: {
+    judgeTransition (index) {
+      if (this.currentRout === index) return
+      if (index > this.currentRout) {
+        this.tranlateValue = 100
+        this.leaveValue = -100
+      } else {
+        this.tranlateValue = -100
+        this.leaveValue = 100
+      }
+      this.currentRout = index
+    },
+    beforeEnter (el) {
+      console.log(1)
+      console.log(`translateY(${this.tranlateValue}%)`)
+      el.style.opacity = 0
+      el.style.transform = `translateY(${this.tranlateValue}%)`
+    },
+    enter (el, done) {
+      console.log(2)
+      el.style.opacity = 1
+      el.style.transform = 'translateY(0)'
+    },
+    beforeLeave (el) {
+      console.log(3)
+      el.style.opacity = 1
+      el.style.transform = 'translateY(0)'
+    },
+    leave (el, done) {
+      console.log(4)
+      console.log(`translateY(${this.leaveValue}%)`)
+      el.style.opacity = 0
+      el.style.transform = `translateY(${this.leaveValue}%)`
+    }
+
   }
 }
 </script>
@@ -48,7 +92,7 @@ export default {
     var(--homepage-end)
   );
 }
-.fade-enter-to,
+/* .fade-enter-to,
 .fade-leave {
   opacity: 1;
   transform: translateY(0);
@@ -61,7 +105,7 @@ export default {
 .fade-leave-to {
   transform: translateY(-100%);
   opacity: 0;
-}
+} */
 
 .fade-enter-active {
   transition: all 0.4s ease;
