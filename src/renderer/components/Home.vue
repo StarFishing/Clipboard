@@ -47,15 +47,13 @@ export default {
       this.currentRout = index
     },
     beforeEnter (el) {
-      console.log(1)
       console.log(`translateY(${this.tranlateValue}%)`)
       el.style.opacity = 0
       el.style.transform = `translateY(${this.tranlateValue}%)`
     },
     enter (el, done) {
-      console.log(2)
       this.$nextTick(() => {
-        el.style.transition = 'all 0.3s ease'
+        el.style.transition = 'all 0.3s ease-in-out'
         el.style.opacity = 1
         el.style.transform = 'translateY(0)'
         // done()
@@ -63,15 +61,12 @@ export default {
       el.addEventListener('transitionend', done)
     },
     beforeLeave (el) {
-      console.log(3)
       el.style.opacity = 1
       el.style.transform = 'translateY(0)'
     },
     leave (el, done) {
-      console.log(4)
-      console.log(`translateY(${this.leaveValue}%)`)
       this.$nextTick(() => {
-        el.style.transition = 'all 0.3s ease'
+        el.style.transition = 'all 0.3s ease-in-out'
         el.style.opacity = 0
         el.style.transform = `translateY(${this.leaveValue}%)`
       })
@@ -84,10 +79,10 @@ export default {
 
 <style>
 :root {
-  --homepage-start: #7a5e87;
-  --homepage-end: #393b50;
-  --sidebar-start: #7a5e87;
-  --sidebar-end: #464c57;
+  --homepage-start: RGBA(135, 91, 123, 1);
+  --homepage-end: RGBA(56, 58, 79, 1);
+  --sidebar-start: RGBA(135, 91, 123, 1);
+  --sidebar-end: RGBA(71, 75, 87, 1);
 }
 .homepage {
   position: absolute;
