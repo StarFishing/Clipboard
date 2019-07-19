@@ -5,7 +5,8 @@
                 v-on:before-enter="beforeEnter"
                 v-on:enter="enter"
                 v-on:before-leave="beforeLeave"
-                v-on:leave="leave">
+                v-on:leave="leave"
+                v-bind:css="false">
       <keep-alive>
         <router-view :key="key" />
       </keep-alive>
@@ -53,8 +54,13 @@ export default {
     },
     enter (el, done) {
       console.log(2)
-      el.style.opacity = 1
-      el.style.transform = 'translateY(0)'
+      this.$nextTick(() => {
+        el.style.transition = 'all 0.3s ease'
+        el.style.opacity = 1
+        el.style.transform = 'translateY(0)'
+        // done()
+      })
+      el.addEventListener('transitionend', done)
     },
     beforeLeave (el) {
       console.log(3)
@@ -64,8 +70,12 @@ export default {
     leave (el, done) {
       console.log(4)
       console.log(`translateY(${this.leaveValue}%)`)
-      el.style.opacity = 0
-      el.style.transform = `translateY(${this.leaveValue}%)`
+      this.$nextTick(() => {
+        el.style.transition = 'all 0.3s ease'
+        el.style.opacity = 0
+        el.style.transform = `translateY(${this.leaveValue}%)`
+      })
+      el.addEventListener('transitionend', done)
     }
 
   }
@@ -107,10 +117,10 @@ export default {
   opacity: 0;
 } */
 
-.fade-enter-active {
+/* .fade-enter-active {
   transition: all 0.4s ease;
 }
 .fade-leave-active {
   transition: all 0.3s ease;
-}
+} */
 </style>
