@@ -320,8 +320,8 @@ export default {
 .doneWrapper .taskitem {
   position: relative;
   height: 300px;
-  margin-right: -17px;
-  padding-right: 17px;
+  margin-right: -20px;
+  padding-right: 20px;
   overflow-y: scroll;
 }
 .controlitemWrapper {
@@ -329,7 +329,7 @@ export default {
   top: 0;
   left: 0;
   bottom: 0;
-  right: 0;
+  right: 20px;
   padding: 0 0 5px 0;
 }
 @media screen and (max-width: 700px) {
@@ -451,8 +451,8 @@ export default {
 }
 .collpse-leave-to {
   opacity: 0;
-  transform: translateX(100px);
-  /* transform: scaleX(0) scaleY(0); */
+  /* transform: translateX(100px); */
+  transform: scaleX(0) scaleY(0);
 
   /* transform: translateX(100px); */
 }
