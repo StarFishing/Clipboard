@@ -17,19 +17,19 @@ export const routes = [
         path: '/Clipboard',
         name: 'Clipboard',
         component: Clipboard,
-        meta: { title: '粘贴板', icon: 'clipboard' }
+        meta: { title: '粘贴板', icon: 'clipboard', name: 'Clipboard' }
       },
       {
         path: '/TaskList',
         name: 'TaskList',
         component: TaskList,
-        meta: { title: '任务列表', icon: 'task2' }
+        meta: { title: '任务列表', icon: 'task2', name: 'TaskList' }
       },
       {
         path: '/Property',
         name: 'Property',
         component: Property,
-        meta: { title: '常用属性', icon: 'property' }
+        meta: { title: '常用属性', icon: 'property', name: 'Property' }
       }
     ]
   },

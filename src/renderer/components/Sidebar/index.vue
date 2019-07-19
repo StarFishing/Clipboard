@@ -4,7 +4,7 @@
          v-for="(item ,index) in items"
          :key="index"
          :class="shadow(index)"
-         @click="changeBackground(index)">
+         @click="changeBackground(item,index)">
       <span class="icon">
         <svg-icon :icon-class="item.icon"
                   style="  width: 20px;height: 20px;vertical-align: sub;"></svg-icon>
@@ -26,25 +26,31 @@ export default {
   },
   created () {
     this.$router.push({ name: 'Clipboard' })
-    this.items = sidebar
+    this.items = sidebar[0].children
+    console.log(this.items)
   },
   methods: {
-    changeBackground (index) {
-      switch (index) {
-        case 0:
-          this.$router.push({ name: 'Clipboard' })
-          changeTheme(index)
-          break
-        case 1:
-          this.$router.push({ name: 'TaskList' })
-          changeTheme(index)
-          break
-        case 2:
-          this.$router.push({ name: 'Property' })
-          break
-        default:
-          break
-      }
+    changeBackground (item, index) {
+      console.log(item.name)
+      this.$router.push({ name: item.name })
+      console.log(this.$route)
+      changeTheme(index)
+      this.$emit('currenIndex', index)
+      // switch (index) {
+      //   case 0:
+      //     this.$router.push({ name: 'Clipboard' })
+      //     changeTheme(index)
+      //     break
+      //   case 1:
+      //     this.$router.push({ name: 'TaskList' })
+      //     changeTheme(index)
+      //     break
+      //   case 2:
+      //     this.$router.push({ name: 'Property' })
+      //     break
+      //   default:
+      //     break
+      // }
       this.current = index
     },
     set_icon (index) {
@@ -87,15 +93,6 @@ export default {
   background-repeat: no-repeat;
   vertical-align: middle;
   margin-right: 10px;
-}
-.clip_icon {
-  background-image: url("~@/assets/icons/粘贴.png");
-}
-.task_icon {
-  background-image: url("~@/assets/icons/任务.png");
-}
-.attr_icon {
-  background-image: url("~@/assets/icons/属性.png");
 }
 </style>
 
