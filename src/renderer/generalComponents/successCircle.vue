@@ -35,6 +35,7 @@ export default {
       this.isselect = !this.isselect
       // 绑定父组件参数
       this.$emit('update:flag', this.isselect)
+      this.$emit('circleClick', this.isselect)
     },
     changestate () {
       // 过渡效果

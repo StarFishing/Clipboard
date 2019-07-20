@@ -38,7 +38,8 @@
                   <div class="head">
                     <div class="finish"
                          style="flex:0 0 40px">
-                      <success-circle :flag.sync="element.finish"></success-circle>
+                      <success-circle :flag.sync="element.finish"
+                                      @circleClick="undoCircle(element)"></success-circle>
                     </div>
                     <taskInput style="flex:1"
                                @valitecontent="valitecontent"
@@ -80,7 +81,8 @@
                 <div class="head">
                   <div class="finish"
                        style="flex:0 0 40px">
-                    <success-circle :flag.sync="element.finish"></success-circle>
+                    <success-circle :flag.sync="element.finish"
+                                    @circleClick="doCircle(element)"></success-circle>
                   </div>
                   <taskInput style="flex:1"
                              :content.sync="element.content"></taskInput>
@@ -94,11 +96,8 @@
             </transition-group>
           </draggable>
         </div>
-
       </div>
-
     </div>
-
   </div>
 </template>
 <script>
@@ -170,6 +169,9 @@ export default {
         }
       })
     },
+    /**
+     * 收起展开任务列表
+     */
     filteritems () {
       this.hiddenitems = !this.hiddenitems
     },
@@ -191,6 +193,24 @@ export default {
           }
           return true
         })
+      }
+    },
+    /**
+     * 已完成任务自动添加到完成任务列表
+     */
+    undoCircle (element) {
+      if (element.finish) {
+        this.deletitem(element)
+        this.list2.push(element)
+      }
+    },
+    /**
+  * 未任务自动添加到任务列表
+  */
+    doCircle (element) {
+      if (!element.finish) {
+        this.fdeletitem(element)
+        this.taskList.push(element)
       }
     }
   },
@@ -215,7 +235,6 @@ export default {
       })
     },
     '$route' (to, from) {
-      console.log('route test')
       datastore.saveTasklist(this.taskList)
       datastore.saveEndTasklist(this.list2)
     }

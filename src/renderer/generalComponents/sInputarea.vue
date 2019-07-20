@@ -10,7 +10,7 @@
                 v-model="text"
                 @focus="onfocus"
                 @blur="onblur"
-                :disabled="!edit"
+                :disabled="edit"
                 class="tooltiptext"></textarea>
     </div>
   </div>
@@ -27,16 +27,30 @@ export default {
     }
   },
   mounted () {
+    // 新添加的元素获得焦点
     if (this.text === '') {
       this.$refs.content.focus()
     }
   },
   methods: {
     getfoucus () {
+      if (this.edit) {
+        this.edit = false
+        // 直接放在这里会有延迟导致聚焦失败
+        this.$refs.content.focus()
+      }
     },
     onfocus () {
+      this.$refs.contenWrppaer.style.width = '210px'
+      this.edit = false
     },
     onblur () {
+      this.$refs.contenWrppaer.style.width = '180px'
+      this.edit = true
+      // 用于验证输入内容
+      this.$emit('valitecontent', this.text)
+      // 双向绑定数据到父组件
+      this.$emit('update:content', this.text)
     }
   }
 }
