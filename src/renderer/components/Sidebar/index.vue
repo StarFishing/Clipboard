@@ -27,30 +27,12 @@ export default {
   created () {
     this.$router.push({ name: 'Clipboard' })
     this.items = sidebar[0].children
-    console.log(this.items)
   },
   methods: {
     changeBackground (item, index) {
-      console.log(item.name)
       this.$router.push({ name: item.name })
-      console.log(this.$route)
       changeTheme(index)
       this.$emit('currenIndex', index)
-      // switch (index) {
-      //   case 0:
-      //     this.$router.push({ name: 'Clipboard' })
-      //     changeTheme(index)
-      //     break
-      //   case 1:
-      //     this.$router.push({ name: 'TaskList' })
-      //     changeTheme(index)
-      //     break
-      //   case 2:
-      //     this.$router.push({ name: 'Property' })
-      //     break
-      //   default:
-      //     break
-      // }
       this.current = index
     },
     set_icon (index) {

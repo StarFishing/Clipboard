@@ -47,7 +47,6 @@ export default {
       this.currentRout = index
     },
     beforeEnter (el) {
-      console.log(`translateY(${this.tranlateValue}%)`)
       el.style.opacity = 0
       el.style.transform = `translateY(${this.tranlateValue}%)`
     },
