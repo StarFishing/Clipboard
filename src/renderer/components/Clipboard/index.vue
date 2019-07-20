@@ -1,6 +1,13 @@
 <template>
   <div class="clipWrapper"
        ref="wrapper">
+    <div class="clearWrapper"
+         @click="clerarAll"
+         v-if="clipList.length">
+      <svg-icon icon-class="clear"
+                style="width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
+      <span class="clerarAll">清空</span>
+    </div>
     <div class="contentsWrapper"
          v-if="clipList.length">
       <div class="contentitems">
@@ -8,17 +15,17 @@
              v-for="(item,index) in clipList"
              :key="index">
 
-          <div class="head">
-            <span>Ctr</span>
+          <div class="head"
+               :style="{background:randomColor()}">
+            <svg-icon icon-class="mark"
+                      style="  width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
             <span class="close"
                   @click="deleteitems(index)"></span>
           </div>
 
-          <div class="content"
-               v-text="item.content">
-            <!-- <prism language="bash"
-                 :plugins="['command-line']"
-                 :code="item.content"></prism> -->
+          <div class="content">
+            <s-textarea :content="item.content"
+                        style="width:100%"></s-textarea>
           </div>
         </div>
       </div>
@@ -29,6 +36,7 @@
 </template>
 <script>
 import { ipcRenderer } from 'electron'
+import sTextarea from '@/generalComponents/sTextarea'
 export default {
   created () {
     // let ipcRenderer = this.$electron.ipcRenderer
@@ -39,6 +47,7 @@ export default {
         if (info.content === this.clipList[this.clipList.length - 1].content) {
           return false
         } else {
+          console.log(this.randomColor())
           this.clipList.push(Object.assign({ 'title': 'dd' }, info))
         }
       } else {
@@ -49,6 +58,7 @@ export default {
   mounted () {
   },
   components: {
+    sTextarea
   },
   data () {
     return {
@@ -61,6 +71,15 @@ export default {
     },
     deleteitems (index) {
       this.clipList.splice(index, 1)
+    },
+    randomColor () {
+      let r = (Math.round(Math.random() * 127) + 127).toString(16)
+      let g = (Math.round(Math.random() * 127) + 127).toString(16)
+      let b = (Math.round(Math.random() * 127) + 127).toString(16)
+      return '#' + r + g + b
+    },
+    clerarAll () {
+      this.clipList = []
     }
   }
 }
@@ -70,6 +89,25 @@ export default {
   /* margin-left: 200px; */
   height: 100%;
   overflow: hidden;
+}
+.clearWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: 100px;
+  align-items: center;
+  width: 60px;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 5px;
+  height: 30px;
+  margin-left: 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.clearWrapper:active {
+  transform: scaleX(0.9) scaleY(0.9);
+}
+.clerarAll {
+  user-select: none;
 }
 .contentsWrapper {
   position: relative;
@@ -81,7 +119,7 @@ export default {
   left: 0;
   bottom: 0;
   right: -20px;
-  padding: 20px 20px 40px 60px;
+  padding: 20px 60px 20px 40px;
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
@@ -94,7 +132,7 @@ export default {
 }
 .items {
   width: 220px;
-  height: 220px;
+  height: max-content;
   flex: 0 0 220px;
   background: white;
   border-radius: 10px;
