@@ -9,7 +9,7 @@
         <svg-icon :icon-class="item.icon"
                   style="  width: 20px;height: 20px;vertical-align: sub;"></svg-icon>
       </span>
-      <span style="display:inline-block;vertical-align:middle;"> {{item.title}} </span>
+      <span class="sidetitle"> {{item.title}} </span>
 
     </div>
   </div>
@@ -76,6 +76,14 @@ export default {
   background-repeat: no-repeat;
   vertical-align: middle;
   margin-right: 10px;
+}
+.sidetitle {
+  display: inline-block;
+  vertical-align: middle;
+  user-select: none;
+  /* -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(135deg, #81ffef 10%, #f067b4 100%);
+  -webkit-background-clip: text; */
 }
 </style>
 

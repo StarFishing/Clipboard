@@ -2,8 +2,8 @@
   <div class="clipWrapper"
        ref="wrapper">
     <div class="clearWrapper"
-         @click="clerarAll"
-         v-if="clipList.length">
+         v-if="clipList.length"
+         @click="clerarAll">
       <svg-icon icon-class="clear"
                 style="width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
       <span class="clerarAll">清空</span>
@@ -108,6 +108,10 @@ export default {
 }
 .clerarAll {
   user-select: none;
+  color: #002661;
+  /* -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(90deg, #92ffc0 10%, #002661 100%);
+  -webkit-background-clip: text; */
 }
 .contentsWrapper {
   position: relative;

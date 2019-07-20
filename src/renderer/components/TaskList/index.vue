@@ -212,6 +212,10 @@ export default {
         this.fdeletitem(element)
         this.taskList.push(element)
       }
+    },
+    savedata () {
+      datastore.saveTasklist(this.taskList)
+      datastore.saveEndTasklist(this.list2)
     }
   },
   computed: {
@@ -237,6 +241,18 @@ export default {
     '$route' (to, from) {
       datastore.saveTasklist(this.taskList)
       datastore.saveEndTasklist(this.list2)
+    },
+    taskList: {
+      handler: function () {
+        this.savedata()
+      },
+      deep: true
+    },
+    list2: {
+      handler: function () {
+        this.savedata()
+      },
+      deep: true
     }
   }
 }
