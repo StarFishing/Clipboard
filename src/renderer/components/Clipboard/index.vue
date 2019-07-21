@@ -153,6 +153,8 @@ export default {
   display: flex;
   align-items: center;
   position: relative;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
 }
 .close {
   right: 5px;
