@@ -5,7 +5,7 @@ Vue.use(Router)
 const Clipboard = () => import('@/components/Clipboard/index')
 const Home = () => import('@/components/Home')
 const TaskList = () => import('@/components/TaskList/index.vue')
-const Property = () => import('@/components/property/index.vue')
+// const Property = () => import('@/components/property/index.vue')
 export const routes = [
   {
     path: '/',
@@ -24,13 +24,13 @@ export const routes = [
         name: 'TaskList',
         component: TaskList,
         meta: { title: '任务列表', icon: 'task2', name: 'TaskList' }
-      },
-      {
-        path: '/Property',
-        name: 'Property',
-        component: Property,
-        meta: { title: '常用属性', icon: 'property', name: 'Property' }
       }
+      // {
+      //   path: '/Property',
+      //   name: 'Property',
+      //   component: Property,
+      //   meta: { title: '储备仓', icon: 'property', name: 'Property' }
+      // }
     ]
   },
   {

@@ -16,6 +16,24 @@ const colors = {
     '--homepage-end': 'RGBA(54, 58, 78, 1.00)',
     '--sidebar-start': 'RGBA(92, 106, 142, 1.00)',
     '--sidebar-end': 'RGBA(71, 76, 88, 1.00)'
+  },
+  options_3: {
+    '--homepage-start': 'RGBA(78, 112, 130, 1.00)',
+    '--homepage-end': 'RGBA(54, 58, 78, 1.00)',
+    '--sidebar-start': 'RGBA(78, 112, 130, 1.00)',
+    '--sidebar-end': 'RGBA(70, 76, 87, 1.00)'
+  },
+  options_4: {
+    '--homepage-start': 'RGBA(79, 115, 120, 1.00)',
+    '--homepage-end': 'RGBA(54, 58, 78, 1.00)',
+    '--sidebar-start': 'RGBA(79, 115, 120, 1.00)',
+    '--sidebar-end': 'RGBA(70, 76, 88, 1.00)'
+  },
+  options_5: {
+    '--homepage-start': 'RGBA(94, 107, 143, 1.00)',
+    '--homepage-end': 'RGBA(55, 59, 79, 1.00)',
+    '--sidebar-start': 'RGBA(94, 107, 143, 1.00)',
+    '--sidebar-end': 'RGBA(71, 76, 88, 1.00)'
   }
 }
 function changeTheme (index) {
