@@ -33,9 +33,12 @@ export default {
   methods: {
     handler () {
       this.isselect = !this.isselect
+      let that = this
       // 绑定父组件参数
-      this.$emit('update:flag', this.isselect)
-      this.$emit('circleClick', this.isselect)
+      setTimeout(() => {
+        that.$emit('update:flag', that.isselect)
+        that.$emit('circleClick', that.isselect)
+      }, 200)
     },
     changestate () {
       // 过渡效果

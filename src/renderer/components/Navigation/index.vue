@@ -5,7 +5,8 @@
     </div>
     <div class="action">
       <div class="changebackgroud"
-           @click="changebackgroud">
+           @click="changebackgroud"
+           v-tooltip.left="'更换主题'">
         <svg-icon icon-class="更新"
                   style="width:22px;height:22px"></svg-icon>
       </div>
@@ -68,6 +69,7 @@ export default {
 </script>
     
 <style scoped>
+@import url("~@/style/tooltip");
 .action {
   display: flex;
   position: absolute;

@@ -47,7 +47,6 @@ export default {
         if (info.content === this.clipList[this.clipList.length - 1].content) {
           return false
         } else {
-          console.log(this.randomColor())
           this.clipList.push(Object.assign({ 'title': 'dd' }, info))
         }
       } else {
