@@ -355,8 +355,8 @@ export default {
 .doneWrapper .taskitem {
   position: relative;
   height: 300px;
-  margin-right: -20px;
-  padding-right: 20px;
+  margin-right: -17px;
+  padding-right: 17px;
   overflow-y: scroll;
 }
 .controlitemWrapper {
@@ -364,7 +364,7 @@ export default {
   top: 0;
   left: 0;
   bottom: 0;
-  right: 20px;
+  right: 0;
   padding: 0 0 5px 0;
 }
 @media screen and (max-width: 700px) {
@@ -417,20 +417,6 @@ export default {
 }
 .list-group-item > .badge {
   float: right;
-}
-.badge {
-  display: inline-block;
-  min-width: 10px;
-  padding: 3px 7px;
-  font-size: 12px;
-  font-weight: bold;
-  line-height: 1;
-  color: #fff;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  background-color: #777;
-  border-radius: 10px;
 }
 /* 进入之前和离开之后的style */
 .add-enter {
@@ -486,8 +472,8 @@ export default {
 }
 .collpse-leave-to {
   opacity: 0;
-  /* transform: translateX(100px); */
-  transform: scaleX(0) scaleY(0);
+  transform: translateX(100px);
+  /* transform: scaleX(0) scaleY(0); */
 
   /* transform: translateX(100px); */
 }
