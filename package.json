@@ -19,8 +19,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "electron-vue",
-    "appId": "com.example.yourapp",
+    "productName": "Pages",
+    "appId": "com.starfishing.pages",
     "directories": {
       "output": "build"
     },
