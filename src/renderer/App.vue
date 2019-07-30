@@ -10,6 +10,7 @@
 /*eslint-disable */
 import Navigation from './components/Navigation/index'
 import { ipcRenderer } from 'electron'
+import path from 'path'
 export default {
   name: 'electron-vue',
   components: {
@@ -18,7 +19,8 @@ export default {
   created () {
     let options = {
       title: 'Pages',
-      body: '网络异常，请检查你的网络'
+      body: '网络异常，请检查你的网络',
+      icon: path.join('../static/icon.ico')
     }
     window.addEventListener('offline', function () {
       let myNotification = new window.Notification(options.title, options)

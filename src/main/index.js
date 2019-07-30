@@ -48,9 +48,11 @@ function createWindow () {
   })
 }
 // 主进程处理渲染进程广播数据
-ipcMain.on('closewindow', (event, data) => {
-  mainWindow = null
-  app.quit()
+ipcMain.on('closewindow', (e, data) => {
+  e.preventDefault()
+  mainWindow.hide()
+  // mainWindow = null
+  // app.quit()
 })
 // ipcMain.on('show', () => {
 //   console.log('sss')
