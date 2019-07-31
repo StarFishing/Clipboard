@@ -13,10 +13,9 @@
       <div class="contentitems">
         <div class="items"
              v-for="(item,index) in clipList"
-             :key="index">
-
+             :key="item.id">
           <div class="head"
-               :style="{background:randomColor()}">
+               :style="item.background">
             <svg-icon icon-class="mark"
                       style="  width: 22px;height: 22px;vertical-align: sub;"></svg-icon>
             <span class="close"
@@ -25,7 +24,9 @@
 
           <div class="content">
             <s-textarea :content="item.content"
-                        style="width:100%"></s-textarea>
+                        class="scroll"
+                        @scroll.native="onscroll"
+                        style="width:100%;height:120px;overflow-y:scroll"></s-textarea>
           </div>
         </div>
       </div>
@@ -47,21 +48,21 @@ export default {
         if (info.content === this.clipList[this.clipList.length - 1].content) {
           return false
         } else {
-          this.clipList.push(Object.assign({ 'title': 'dd' }, info))
+          this.clipList.push(Object.assign({ 'title': 'dd', 'id': new Date().getTime(), 'background': { background: this.randomColor() } }, info))
         }
       } else {
-        this.clipList.push(Object.assign({ 'title': 'dd' }, info))
+        this.clipList.push(Object.assign({ 'title': 'dd', 'id': new Date().getTime(), 'background': { background: this.randomColor() } }, info))
       }
     })
-  },
-  mounted () {
   },
   components: {
     sTextarea
   },
   data () {
     return {
-      clipList: []
+      clipList: [],
+      timer: null,
+      target: null
     }
   },
   methods: {
@@ -69,7 +70,7 @@ export default {
       console.log('success')
     },
     deleteitems (index) {
-      this.clipList.splice(index, 1)
+      this.$delete(this.clipList, index)
     },
     randomColor () {
       let r = (Math.round(Math.random() * 127) + 127).toString(16)
@@ -79,6 +80,23 @@ export default {
     },
     clerarAll () {
       this.clipList = []
+    },
+    onscroll (e) {
+      if (!this.target) {
+        this.target = e.target
+      } else if (this.target !== e.target) {
+        this.target.style.setProperty('--bg-scroll', 'transparent')
+        this.target = e.target
+      }
+
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      e.target.style.setProperty('--bg-scroll', '#5e4e6d')
+      this.timer = setTimeout(() => {
+        console.log('ss')
+        e.target.style.setProperty('--bg-scroll', 'transparent')
+      }, 500)
     }
   }
 }
@@ -184,7 +202,7 @@ export default {
   content: "清除";
 }
 .content {
-  padding: 5px 10px;
+  padding: 5px 2px 5px 5px;
   font-size: 12px;
   font-family: -apple-system, system-ui, BlinkMacSystemFont, Helvetica Neue,
     PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
@@ -193,6 +211,31 @@ export default {
   font-size: 13px;
   font-weight: 400;
   overflow-wrap: break-word;
+}
+.clearWrapper .scroll {
+  --bg-scroll: transparent;
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+.scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 20px;
+  transition: all 0.5s;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+.scroll::-webkit-scrollbar-track {
+  /*滚动条的背景区域的圆角*/
+  border-radius: 10px;
+}
+
+/*定义滑块 内阴影+圆角*/
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--bg-scroll);
+}
+.scroll::-webkit-scrollbar-thumb:window-inactive {
+  /*当焦点不在当前区域滑块的状态*/
+  background-color: transparent;
 }
 .loading {
   background-image: url("~@/assets/背景.png");
